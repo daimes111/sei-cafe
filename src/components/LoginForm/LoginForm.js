@@ -8,18 +8,22 @@ export default function LoginForm ({ setUser }) {
   })
   const [error, setError] = useState('')
 
-  const handleChange = (evt) => {
-    setCredentials({ ...credentials, [evt.target.name]: evt.target.value })
-    setError('')
+  function handleChange(evt) {
+    setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
+    setError('');
   }
-
-  const handleSubmit = async (evt) => {
-    evt.preventDefault()
+  
+  async function handleSubmit(evt) {
+    // Prevent form from being submitted to the server
+    evt.preventDefault();
     try {
-      const user = await userService.login(credentials)
-      setUser(user)
-    } catch (error) {
-      setError(error.message)
+      // The promise returned by the signUp service method
+      // will resolve to the user object included in the
+      // payload of the JSON Web Token (JWT)
+      const user = await userService.login(credentials);
+      setUser(user);
+    } catch {
+      setError('Log In Failed - Try Again');
     }
   }
 
