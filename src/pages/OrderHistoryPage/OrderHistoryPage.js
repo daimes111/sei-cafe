@@ -14,11 +14,9 @@ export default function OrderHistoryPage({ user, setUser }) {
 
   /*--- Side Effects --- */
   useEffect(function () {
-    // Load previous orders (paid)
     async function fetchOrderHistory() {
       const orders = await ordersAPI.getOrderHistory();
       setOrders(orders);
-      // If no orders, activeOrder will be set to null below
       setActiveOrder(orders[0] || null);
     }
     fetchOrderHistory();
